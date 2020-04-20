@@ -1,0 +1,46 @@
+{
+  "name": "@drawbotics/eslint-plugin-deprecated-prop",
+  "version": "0.1.0",
+  "description": "Small eslint plugin to report usage of a deprecated prop",
+  "main": "index.js",
+  "scripts": {
+    "clean": "rimraf ./dist",
+    "build": "npm run clean && tsc --build",
+    "test": "jest"
+  },
+  "author": "nicmosc <nmoscholios@gmail.com>",
+  "license": "ISC",
+  "dependencies": {
+    "typescript": "^3.8.3"
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint-staged"
+    }
+  },
+  "lint-staged": {
+    "src/**/*": "eslint --format node_modules/eslint-formatter-pretty --max-warnings=0"
+  },
+  "devDependencies": {
+    "@types/eslint": "^6.8.0",
+    "@types/estree": "0.0.44",
+    "@types/node": "^13.13.0",
+    "@typescript-eslint/eslint-plugin": "^2.28.0",
+    "@typescript-eslint/parser": "^2.28.0",
+    "eslint": "^6.8.0",
+    "eslint-formatter-pretty": "^3.0.1",
+    "eslint-plugin-jest": "^23.8.2",
+    "husky": "^4.2.5",
+    "import-sort-style-module": "^6.0.0",
+    "jest": "^25.4.0",
+    "lint-staged": "^10.1.6",
+    "prettier": "^2.0.4",
+    "prettier-plugin-import-sort": "0.0.4",
+    "rimraf": "^3.0.2",
+    "ts-jest": "^25.4.0"
+  },
+  "peerDependencies": {
+    "@typescript-eslint/parser": "^2.28.0",
+    "eslint": "^6.8.0"
+  }
+}

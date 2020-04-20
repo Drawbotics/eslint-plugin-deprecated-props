@@ -1,0 +1,19 @@
+{
+  "compilerOptions": {
+    "module": "CommonJS",
+    "target": "es2019",
+    "lib": ["ES2019"],
+    "sourceMap": false,
+    "outDir": "./dist/",
+    "incremental": true,
+    "noUnusedLocals": true,
+    "noUnusedParameters": true,
+    "strict": true,
+    "baseUrl": "./",
+    "declaration": true,
+    "types": ["node"]
+  },
+  "include": [
+    "./src"
+  ]
+}
