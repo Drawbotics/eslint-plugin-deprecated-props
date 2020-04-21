@@ -19,7 +19,7 @@ module.exports = {
     "no-array-constructor": ["warn"],
     "no-caller": ["warn"],
     "no-cond-assign": ["warn", "always"],
-    "no-console": ["warn", { allow: ["warn", "error", "reportException"] }],
+    // "no-console": ["warn", { allow: ["warn", "error", "reportException"] }],
     "no-eval": ["warn"],
     "no-extend-native": ["warn"],
     "no-extra-bind": ["warn"],
@@ -43,7 +43,7 @@ module.exports = {
 
     // TypeScript
     "no-unused-vars": ["off"],
-    "@typescript-eslint/no-unused-vars": ["warn", { ignoreRestSiblings: true }],
+    // "@typescript-eslint/no-unused-vars": ["warn", { ignoreRestSiblings: true }],
     "no-useless-constructor": ["off"],
     "@typescript-eslint/no-useless-constructor": ["warn"],
   },

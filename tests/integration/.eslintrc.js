@@ -4,11 +4,21 @@ module.exports = {
   extends: ["eslint:recommended", "plugin:jest/recommended", 'plugin:react/recommended'],
   parserOptions: {
     sourceType: "module",
+    project: './tsconfig.json'
   },
   settings: {
     react: {
       version: 'latest',
     },
+    // "import/parsers": {
+    //   "@typescript-eslint/parser": [".ts", ".tsx"]
+    // },
+    // "import/resolver": {
+    //   "typescript": {
+    //     "alwaysTryTypes": true,
+    //     "directory": "./tsconfig.json"
+    //   }
+    // }
   },
   env: {
     node: true,
