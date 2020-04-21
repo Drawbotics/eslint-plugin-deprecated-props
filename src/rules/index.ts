@@ -1,3 +1,3 @@
-import deprecatedProp from './deprecatedProps';
+import deprecatedProps from './deprecatedProps';
 
-export default { deprecatedProp };
+export default { deprecatedProps };

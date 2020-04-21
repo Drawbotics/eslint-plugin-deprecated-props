@@ -1,0 +1,10 @@
+{
+  "private": true,
+  "name": "eslint-plugin-deprecated-props-tester",
+  "scripts": {
+    "test": "eslint test.tsx"
+  },
+  "devDependencies": {
+    "@drawbotics/eslint-plugin-deprecated-props": "file:../.."
+  }
+}
