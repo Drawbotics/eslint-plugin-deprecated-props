@@ -1,6 +1,6 @@
-import { Category, Dot } from '@drawbotics/react-drylus';
+import { Category, Color, Dot } from '@drawbotics/react-drylus';
 import React from 'react';
 
 export const Test = () => {
-  return <Dot category={Category.PRIMARY} />;
+  return <Dot color={Color.BLUE} category={Category.PRIMARY} />;
 };

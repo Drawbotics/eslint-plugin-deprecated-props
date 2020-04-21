@@ -12,6 +12,12 @@ import * as ESTtree from 'estree';
 import { canHaveJsDoc, convertAst, getJsDoc } from 'tsutils';
 import * as ts from 'typescript';
 
+interface JSDocProperty {
+  name: string;
+  tag: string;
+  description?: string;
+}
+
 type RequiredParserServices = {
   [k in keyof ParserServices]: Exclude<ParserServices[k], undefined>;
 };
@@ -57,7 +63,7 @@ function getOpeningElement(nodes: Array<TSESTree.Node>): TSESTree.JSXOpeningElem
 const meta: TSESLint.RuleMetaData<'avoidDeprecated'> = {
   type: 'problem',
   messages: {
-    avoidDeprecated: `Avoid using '{{ name }}' since it's deprecated. '{{ reason }}'`,
+    avoidDeprecated: `Avoid using '{{ name }}' since it's deprecated, {{ reason }}`,
   },
   schema: [],
 };
@@ -87,11 +93,10 @@ export default {
             .filter((attribute) => attribute.type === 'JSXAttribute')
             .map((attribute) => attribute.name.name) ?? [];
 
-        console.log(attributeNames);
-
-        // console.log('node', util.inspect(openingJsxElement?.attributes, { depth: 2 }));
-
-        // const propName = symbol?.getName();
+        // If the JSX element has no props
+        if (attributeNames.length === 0) {
+          return false;
+        }
 
         // Get JSDoc from parent def (source file)
         const parentSymbol = (symbol as any).parent as ts.Symbol;
@@ -109,6 +114,8 @@ export default {
           (statement: ts.Statement) => statement.kind === ts.SyntaxKind.InterfaceDeclaration,
         ) as Array<ts.InterfaceDeclaration>;
 
+        let deprecatedPropReports: Array<JSDocProperty> = [];
+
         for (const interfaceDeclaration of interfaceDeclarations) {
           const symbols = interfaceDeclaration.members.map(
             (member) => (member as any).symbol as ts.Symbol,
@@ -120,13 +127,33 @@ export default {
               doc: symbol.getJsDocTags(),
             }));
 
-          const deprecatedPropReports = properties.filter(
-            (property) =>
-              property.doc.some((doc) => doc.name === 'deprecated') &&
-              attributeNames.includes(property.name),
-          );
+          const propertiesForCurrentInterface: Array<JSDocProperty> = properties
+            .filter(
+              (property) =>
+                property.doc.some((tag) => tag.name === 'deprecated') &&
+                attributeNames.includes(property.name),
+            )
+            .map((property) => {
+              const deprecated = property.doc.find((tag) => tag.name === 'deprecated');
+              return {
+                name: property.name,
+                tag: deprecated!.name,
+                description: deprecated?.text,
+              };
+            });
 
-          console.log(util.inspect(deprecatedPropReports, { depth: 4 }));
+          deprecatedPropReports.push(...propertiesForCurrentInterface);
+        }
+
+        for (const report of deprecatedPropReports) {
+          context.report({
+            node,
+            messageId: 'avoidDeprecated',
+            data: {
+              name: report.name,
+              reason: report.description,
+            },
+          });
         }
       },
     };
