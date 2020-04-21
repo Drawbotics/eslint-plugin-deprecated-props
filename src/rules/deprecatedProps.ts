@@ -50,6 +50,10 @@ function getSymbol(id: TSESTree.Identifier, services: RequiredParserServices, tc
   return symbol;
 }
 
+function getOpeningElement(nodes: Array<TSESTree.Node>): TSESTree.JSXOpeningElement | undefined {
+  return nodes.find((node) => node.type === 'JSXOpeningElement') as TSESTree.JSXOpeningElement;
+}
+
 const meta: TSESLint.RuleMetaData<'avoidDeprecated'> = {
   type: 'problem',
   messages: {
@@ -67,22 +71,38 @@ export default {
     const services = context.parserServices as RequiredParserServices;
     return {
       JSXIdentifier(node: TSESTree.Node) {
-        const parent = node.parent as TSESTree.Node;
-        const tsNode = services.esTreeNodeToTSNodeMap.get(node) as ts.Node;
-        // const signature = tc?.getResolvedSignature(tsNode as ts.CallLikeExpression);
         const tc = services.program.getTypeChecker();
         const symbol = getSymbol(node as TSESTree.Identifier, services, tc);
-        // console.log(util.inspect(symbol, { depth: 2 }));
-        const withJsDoc = canHaveJsDoc(tsNode);
-        // Interface Declaration = 246
+        const declaration = symbol?.valueDeclaration;
+
+        // If it's not a VariableDeclaration, stop looking
+        if (declaration == null || declaration.kind !== ts.SyntaxKind.VariableDeclaration) {
+          return false;
+        }
+
+        const ancestors = context.getAncestors();
+        const openingJsxElement = getOpeningElement(ancestors);
+        const attributeNames =
+          openingJsxElement?.attributes
+            .filter((attribute) => attribute.type === 'JSXAttribute')
+            .map((attribute) => attribute.name.name) ?? [];
+
+        console.log(attributeNames);
+
+        // console.log('node', util.inspect(openingJsxElement?.attributes, { depth: 2 }));
+
+        // const propName = symbol?.getName();
+
+        // Get JSDoc from parent def (source file)
         const parentSymbol = (symbol as any).parent as ts.Symbol;
-        const declarations = parentSymbol.getDeclarations();
-        const sourceFileDeclaration = declarations?.find(
+        const parentDeclarations = parentSymbol.getDeclarations();
+        const sourceFileDeclaration = parentDeclarations?.find(
           (declaration) => declaration.kind === ts.SyntaxKind.SourceFile,
         ) as ts.SourceFile;
 
+        // If there is no declaration file, stop looking
         if (sourceFileDeclaration == null) {
-          return {};
+          return false;
         }
 
         const interfaceDeclarations = sourceFileDeclaration.statements.filter(
@@ -90,12 +110,6 @@ export default {
         ) as Array<ts.InterfaceDeclaration>;
 
         for (const interfaceDeclaration of interfaceDeclarations) {
-          // const callSignatures = interfaceDeclaration.members.map(
-          //   (node) => node as ts.CallSignatureDeclaration,
-          // );
-          // const signatures = callSignatures.map((signature) => signature
-          // const propsWithDoc = interfaceDeclaration.members.map((node) => ({ name:  }) );
-
           const symbols = interfaceDeclaration.members.map(
             (member) => (member as any).symbol as ts.Symbol,
           );
@@ -106,11 +120,13 @@ export default {
               doc: symbol.getJsDocTags(),
             }));
 
-          const deprecatedProps = properties.filter((property) =>
-            property.doc.some((doc) => doc.name === 'deprecated'),
+          const deprecatedPropReports = properties.filter(
+            (property) =>
+              property.doc.some((doc) => doc.name === 'deprecated') &&
+              attributeNames.includes(property.name),
           );
 
-          console.log(util.inspect(deprecatedProps, { depth: 4 }));
+          console.log(util.inspect(deprecatedPropReports, { depth: 4 }));
         }
       },
     };
