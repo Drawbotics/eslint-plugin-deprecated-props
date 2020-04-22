@@ -2,6 +2,7 @@ import { ParserServices, TSESLint, TSESTree } from '@typescript-eslint/experimen
 import ts from 'typescript';
 
 interface JSDocProperty {
+  node: TSESTree.JSXIdentifier;
   name: string;
   tag: string;
   description?: string;
@@ -87,15 +88,19 @@ export default {
 
         const ancestors = context.getAncestors();
         const openingJsxElement = getOpeningElement(ancestors);
-        const attributeNames =
-          openingJsxElement?.attributes
-            .filter((attribute) => attribute.type === 'JSXAttribute')
-            .map((attribute) => attribute.name.name) ?? [];
+        const attributeElements =
+          openingJsxElement?.attributes.filter((attribute) => attribute.type === 'JSXAttribute') ??
+          [];
 
         // If the JSX element has no props
-        if (attributeNames.length === 0) {
+        if (attributeElements.length === 0) {
           return false;
         }
+
+        const attributeMap = attributeElements.reduce(
+          (memo, element) => ({ ...memo, [element.name.name]: element }),
+          {},
+        ) as Record<string, TSESTree.JSXAttribute>;
 
         // Get JSDoc from parent def (source file)
         const sourceFileDeclaration =
@@ -127,11 +132,12 @@ export default {
             .filter(
               (property) =>
                 property.doc.some((tag) => tag.name === 'deprecated') &&
-                attributeNames.includes(property.name),
+                attributeMap[property.name] != null,
             )
             .map((property) => {
               const deprecated = property.doc.find((tag) => tag.name === 'deprecated');
               return {
+                node: attributeMap[property.name].name,
                 name: property.name,
                 tag: deprecated!.name,
                 description: deprecated?.text,
@@ -143,7 +149,7 @@ export default {
 
         for (const report of deprecatedPropReports) {
           context.report({
-            node,
+            node: report.node,
             messageId: 'avoidDeprecated',
             data: {
               name: report.name,

@@ -27,18 +27,27 @@ describe('avoidDeprecated', () => {
       expect(errorCount).toEqual(0);
     });
 
-    it('generates the right warning', () => {
+    it('matches the message pattern', () => {
       const { messages } = res.results[0]!;
-
       const text = messages[0].message;
+
       expect(text).toMatch(stringPattern);
     });
 
     it('generates exactly the right warning', () => {
       const { messages } = res.results[0]!;
-
       const text = messages[0].message;
+
       expect(text).toMatch(`Avoid using 'category' since it's deprecated. use color instead`);
+    });
+
+    it('the warning is at the right position', () => {
+      const { messages } = res.results[0]!;
+      const { column, line, endColumn } = messages[0];
+
+      expect(line).toEqual(7);
+      expect(column).toEqual(31);
+      expect(endColumn).toEqual(39);
     });
   });
 
@@ -57,7 +66,7 @@ describe('avoidDeprecated', () => {
       expect(errorCount).toEqual(0);
     });
 
-    it('generates the right warnings', () => {
+    it('matches the message pattern', () => {
       const { messages } = res.results[0]!;
 
       const text1 = messages[0].message;
@@ -76,6 +85,18 @@ describe('avoidDeprecated', () => {
       const text2 = messages[1].message;
       expect(text2).toMatch(`Avoid using 'someProp2' since it's deprecated. reason2`);
     });
+
+    it('the warnings are at the right position', () => {
+      const { messages } = res.results[0]!;
+
+      expect(messages[0].line).toEqual(27);
+      expect(messages[0].column).toEqual(18);
+      expect(messages[0].endColumn).toEqual(26);
+
+      expect(messages[1].line).toEqual(27);
+      expect(messages[1].column).toEqual(30);
+      expect(messages[1].endColumn).toEqual(39);
+    });
   });
 
   describe('when the component interface extends from another interface', () => {
@@ -93,7 +114,7 @@ describe('avoidDeprecated', () => {
       expect(errorCount).toEqual(0);
     });
 
-    it('generates the right warning', () => {
+    it('matches the message pattern', () => {
       const { messages } = res.results[0]!;
 
       const text = messages[0].message;
