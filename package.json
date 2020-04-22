@@ -8,7 +8,8 @@
     "build": "npm run clean && tsc --build",
     "test:integration": "cd tests/integration && npm run test",
     "test": "npm run build && npm run test:integration",
-    "lint:integration": "npm run build && cd tests/integration && npm run lint"
+    "lint:integration": "npm run build && cd tests/integration && npm run lint",
+    "prepublishOnly": "npm run test"
   },
   "author": "nicmosc <nmoscholios@gmail.com>",
   "license": "ISC",
