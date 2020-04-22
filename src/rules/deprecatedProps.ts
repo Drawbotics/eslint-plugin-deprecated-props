@@ -60,6 +60,16 @@ function getOpeningElement(nodes: Array<TSESTree.Node>): TSESTree.JSXOpeningElem
   return nodes.find((node) => node.type === 'JSXOpeningElement') as TSESTree.JSXOpeningElement;
 }
 
+function getSourceFileParent(node: ts.Node): ts.SourceFile | undefined {
+  if (ts.isSourceFile(node)) {
+    return node;
+  }
+  if (node.parent == null) {
+    return;
+  }
+  return getSourceFileParent(node.parent);
+}
+
 const meta: TSESLint.RuleMetaData<'avoidDeprecated'> = {
   type: 'problem',
   messages: {
@@ -99,11 +109,8 @@ export default {
         }
 
         // Get JSDoc from parent def (source file)
-        const parentSymbol = (symbol as any).parent as ts.Symbol;
-        const parentDeclarations = parentSymbol.getDeclarations();
-        const sourceFileDeclaration = parentDeclarations?.find(
-          (declaration) => declaration.kind === ts.SyntaxKind.SourceFile,
-        ) as ts.SourceFile;
+        const sourceFileDeclaration =
+          symbol != null ? getSourceFileParent(symbol.valueDeclaration) : null; // Need parent
 
         // If there is no declaration file, stop looking
         if (sourceFileDeclaration == null) {
