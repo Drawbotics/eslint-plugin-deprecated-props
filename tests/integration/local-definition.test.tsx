@@ -1,6 +1,6 @@
-import { Category, Color, Dot } from '@drawbotics/react-drylus';
 import React from 'react';
 
+// Local component definition and usage
 interface ComponentProps {
   /** @deprecated reason */
   someProp?: string;
@@ -20,7 +20,6 @@ const Component = ({ someProp, someOtherProp }: ComponentProps) => {
 export const Test = () => {
   return (
     <React.Fragment>
-      <Dot color={Color.BLUE} category={Category.PRIMARY} />
       <Component someProp="" someOtherProp={1} />
     </React.Fragment>
   );

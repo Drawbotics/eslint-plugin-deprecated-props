@@ -10,15 +10,6 @@ module.exports = {
     react: {
       version: 'latest',
     },
-    // "import/parsers": {
-    //   "@typescript-eslint/parser": [".ts", ".tsx"]
-    // },
-    // "import/resolver": {
-    //   "typescript": {
-    //     "alwaysTryTypes": true,
-    //     "directory": "./tsconfig.json"
-    //   }
-    // }
   },
   env: {
     node: true,

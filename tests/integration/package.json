@@ -2,7 +2,7 @@
   "private": true,
   "name": "eslint-plugin-deprecated-props-tester",
   "scripts": {
-    "test": "eslint test.tsx"
+    "test": "eslint --ext .tsx ./"
   },
   "devDependencies": {
     "@drawbotics/eslint-plugin-deprecated-props": "file:../.."
