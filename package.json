@@ -7,7 +7,8 @@
     "clean": "rimraf ./dist",
     "build": "npm run clean && tsc --build",
     "test:integration": "cd tests/integration && npm run test",
-    "test": "npm run build && npm run test:integration"
+    "test": "npm run build && npm run test:integration",
+    "lint:integration": "npm run build && cd tests/integration && npm run lint"
   },
   "author": "nicmosc <nmoscholios@gmail.com>",
   "license": "ISC",

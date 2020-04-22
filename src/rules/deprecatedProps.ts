@@ -147,7 +147,7 @@ export default {
             messageId: 'avoidDeprecated',
             data: {
               name: report.name,
-              reason: report.description,
+              reason: report.description ?? '',
             },
           });
         }

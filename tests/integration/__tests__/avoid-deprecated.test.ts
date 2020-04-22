@@ -1,5 +1,4 @@
 import path from 'path';
-import util from 'util';
 
 import { CLIEngine } from 'eslint';
 
@@ -9,6 +8,8 @@ const engineConfig = {
 };
 
 const cli = new CLIEngine(engineConfig);
+
+const stringPattern = /Avoid using '\w+' since it's deprecated\. .*?$/;
 
 describe('avoidDeprecated', () => {
   describe('when the component interface is from an external library', () => {
@@ -30,7 +31,7 @@ describe('avoidDeprecated', () => {
       const { messages } = res.results[0]!;
 
       const text = messages[0].message;
-      expect(text).toMatch(/Avoid using '\w+' since it's deprecated\. .+$/);
+      expect(text).toMatch(stringPattern);
     });
 
     it('generates exactly the right warning', () => {
@@ -60,10 +61,10 @@ describe('avoidDeprecated', () => {
       const { messages } = res.results[0]!;
 
       const text1 = messages[0].message;
-      expect(text1).toMatch(/Avoid using '\w+' since it's deprecated\. .+$/);
+      expect(text1).toMatch(stringPattern);
 
       const text2 = messages[1].message;
-      expect(text2).toMatch(/Avoid using '\w+' since it's deprecated\. .+$/);
+      expect(text2).toMatch(stringPattern);
     });
 
     it('generates exactly the right warnings', () => {
@@ -77,7 +78,7 @@ describe('avoidDeprecated', () => {
     });
   });
 
-  describe('when the component interface extends from another file', () => {
+  describe('when the component interface extends from another interface', () => {
     let res: CLIEngine.LintReport;
 
     beforeEach(() => {
@@ -96,7 +97,7 @@ describe('avoidDeprecated', () => {
       const { messages } = res.results[0]!;
 
       const text = messages[0].message;
-      expect(text).toMatch(/Avoid using '\w+' since it's deprecated\. .+$/);
+      expect(text).toMatch(stringPattern);
     });
 
     it('generates exactly the right warning', () => {
@@ -106,4 +107,6 @@ describe('avoidDeprecated', () => {
       expect(text).toMatch(`Avoid using 'deprecatedProp' since it's deprecated. `);
     });
   });
+
+  // TODO when the component interface extends from an external interface
 });

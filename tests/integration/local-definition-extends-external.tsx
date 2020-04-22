@@ -1,15 +1,6 @@
 import React from 'react';
 
-export interface ExternalComponentProps {
-  /** @deprecated */
-  deprecatedProp?: string;
-
-  /**
-   * A prop
-   * @private
-   */
-  acceptedProp: string;
-}
+import { ExternalComponentProps } from './types';
 
 // Local component definition and usage
 interface ComponentProps extends ExternalComponentProps {
