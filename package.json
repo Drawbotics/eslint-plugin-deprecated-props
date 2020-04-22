@@ -21,6 +21,7 @@
     "src/**/*": "eslint --format node_modules/eslint-formatter-pretty --max-warnings=0"
   },
   "dependencies": {
+    "@typescript-eslint/experimental-utils": "^2.29.0",
     "typescript": "^3.8.3"
   },
   "devDependencies": {
@@ -31,7 +32,6 @@
     "@types/node": "^13.13.0",
     "@types/react": "^16.9.34",
     "@typescript-eslint/eslint-plugin": "^2.29.0",
-    "@typescript-eslint/experimental-utils": "^2.29.0",
     "@typescript-eslint/parser": "^2.28.0",
     "eslint": "^6.8.0",
     "eslint-formatter-pretty": "^3.0.1",
