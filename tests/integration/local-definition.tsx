@@ -5,14 +5,18 @@ interface ComponentProps {
   /** @deprecated reason */
   someProp?: string;
 
+  /** @deprecated reason2 */
+  someProp2?: string;
+
   someOtherProp: number;
 }
 
-const Component = ({ someProp, someOtherProp }: ComponentProps) => {
+const Component = ({ someProp, someOtherProp, someProp2 }: ComponentProps) => {
   return (
     <div>
       {someProp}
       {someOtherProp}
+      {someProp2}
     </div>
   );
 };
@@ -20,7 +24,7 @@ const Component = ({ someProp, someOtherProp }: ComponentProps) => {
 export const Test = () => {
   return (
     <React.Fragment>
-      <Component someProp="" someOtherProp={1} />
+      <Component someProp="" someProp2="" someOtherProp={1} />
     </React.Fragment>
   );
 };

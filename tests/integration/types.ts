@@ -1,5 +1,5 @@
 export interface ExternalComponentProps {
-  /** @deprecated reason */
+  /** @deprecated */
   deprecatedProp?: string;
 
   /**

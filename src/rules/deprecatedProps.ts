@@ -62,7 +62,7 @@ function getSourceFileParent(node: ts.Node): ts.SourceFile | undefined {
 const meta: TSESLint.RuleMetaData<'avoidDeprecated'> = {
   type: 'problem',
   messages: {
-    avoidDeprecated: `Avoid using '{{ name }}' since it's deprecated, {{ reason }}`,
+    avoidDeprecated: `Avoid using '{{ name }}' since it's deprecated. {{ reason }}`,
   },
   schema: [],
 };
