@@ -2,7 +2,11 @@
 
 Plugin to report usage of deprecated typescript `interface` properties in React components props. The keyword here is "usage", if the property is not used then the linter does not throw a warning.
 
-**Example:**
+**VSCode integration**
+
+This plugin can also be used with VSCode if the [Eslint](https://github.com/microsoft/vscode-eslint) extension is installed. See below for how to set up that.
+
+### Example
 ```tsx
 interface ComponentProps {
   /**
@@ -56,7 +60,7 @@ module.exports = {
   plugins: ['@drawbotics/eslint-plugin-deprecated-props'],
   parserOptions: {
     sourceType: 'module',
-    project: './tsconfig.json',
+    project: 'tsconfig.json', // Path does not have to be relative
   },
   rules: {
     '@drawbotics/deprecated-props/deprecated-props': ['warn'],  // Or 'error'
@@ -70,6 +74,34 @@ To run the integration tests simply run
 ```bash
 $ npm run test
 ```
+
+## VSCode
+Depending on your personal configuration, you can enable vscode to report deprecation usage through the plugin. If you already have the ESLint plugin installed and enabled, the deprecation rules should work automatically.
+
+If you _don't_ like to have the ESLint plugin running in VSCode (e.g. because you already have the Typescript parser enabled) then you can do the following:
+1. Install the ESLint plugin
+2. Either create a workspace settings file for your project, or edit your global settings if you want this plugin to work automatically when the `@drawbotics/eslint-plugin-deprecated-props` is installed locally (note: eslint in vscode will complain if it's not installed)
+3. Use the following configuration (essentially the same as above):
+```json
+"eslint.validate": [
+  "typescript",
+  "typescriptreact"
+],
+"eslint.workingDirectories": [{ "mode": "auto" }],
+"eslint.options": {
+  "useEslintrc": false,
+  "rules": {
+    "@drawbotics/deprecated-props/deprecated-props": ["warn"],  // OR error
+  },
+  "parser": "@typescript-eslint/parser",
+  "plugins": ["@drawbotics/eslint-plugin-deprecated-props"],
+  "parserOptions": {
+    "sourceType": "module",
+    "project": "tsconfig.json",
+  },
+},
+```
+This way you can have VSCode **only** report the deprecation warnings, and no other ESLint related rule warning.
 
 ## Todo list
 As mentioned above, this plugin was created for a very specific use case. If you would like to use it and/or contribute to make it better, feel free to submit a PR.
