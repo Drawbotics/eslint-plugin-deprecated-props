@@ -1,0 +1,11 @@
+{
+  "private": true,
+  "name": "eslint-plugin-deprecated-props-tester",
+  "scripts": {
+    "lint": "eslint --ext .tsx ./local-definition-extends-external.tsx",
+    "test": "jest --config ../../jest.config.js"
+  },
+  "devDependencies": {
+    "@drawbotics/eslint-plugin-deprecated-props": "file:../.."
+  }
+}
