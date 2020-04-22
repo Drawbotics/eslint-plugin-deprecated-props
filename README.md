@@ -60,7 +60,7 @@ module.exports = {
   plugins: ['@drawbotics/eslint-plugin-deprecated-props'],
   parserOptions: {
     sourceType: 'module',
-    project: 'tsconfig.json', // Path does not have to be relative
+    project: 'tsconfig.json', // Path should point to tsconfig.json file, without leading `./` 
   },
   rules: {
     '@drawbotics/deprecated-props/deprecated-props': ['warn'],  // Or 'error'
@@ -78,7 +78,7 @@ $ npm run test
 ## VSCode
 Depending on your personal configuration, you can enable vscode to report deprecation usage through the plugin. If you already have the ESLint plugin installed and enabled, the deprecation rules should work automatically.
 
-If you _don't_ like to have the ESLint plugin running in VSCode (e.g. because you already have the Typescript parser enabled) then you can do the following:
+If you _don't_ like to have the ESLint extension running in VSCode (e.g. because you already have the Typescript parser enabled) then you can do the following:
 1. Install the ESLint plugin
 2. Either create a workspace settings file for your project, or edit your global settings if you want this plugin to work automatically when the `@drawbotics/eslint-plugin-deprecated-props` is installed locally (note: eslint in vscode will complain if it's not installed)
 3. Use the following configuration (essentially the same as above):
@@ -101,7 +101,7 @@ If you _don't_ like to have the ESLint plugin running in VSCode (e.g. because yo
   },
 },
 ```
-This way you can have VSCode **only** report the deprecation warnings, and no other ESLint related rule warning.
+This way you can have VSCode **only** report the deprecation warnings, and no other ESLint related rule warning. Note that if your `project` property in the `.eslintrc` config points to a `tsconfig.json` file which is not at the root of the project (e.g. `project: settings/configs/tsconfig.json`), in the VSCode config you should mofidy the same field to point to simply `tsconfig.json`, since the VSCode extension will automatically find the right file.
 
 ## Todo list
 As mentioned above, this plugin was created for a very specific use case. If you would like to use it and/or contribute to make it better, feel free to submit a PR.
