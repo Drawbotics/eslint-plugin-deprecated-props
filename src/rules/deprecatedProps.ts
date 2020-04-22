@@ -1,16 +1,5 @@
-import * as util from 'util';
-
-import { getSourceFileOfNode } from '@typescript-eslint/eslint-plugin/dist/util';
-import {
-  ESLintUtils,
-  ParserServices,
-  TSESLint,
-  TSESTree,
-} from '@typescript-eslint/experimental-utils';
-import * as ESLint from 'eslint';
-import * as ESTtree from 'estree';
-import { canHaveJsDoc, convertAst, getJsDoc } from 'tsutils';
-import * as ts from 'typescript';
+import { ParserServices, TSESLint, TSESTree } from '@typescript-eslint/experimental-utils';
+import ts from 'typescript';
 
 interface JSDocProperty {
   name: string;

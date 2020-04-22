@@ -2,7 +2,8 @@
   "private": true,
   "name": "eslint-plugin-deprecated-props-tester",
   "scripts": {
-    "test": "eslint --ext .tsx ./"
+    "lint": "eslint --ext .tsx ./",
+    "test": "jest --config ../../jest.config.js"
   },
   "devDependencies": {
     "@drawbotics/eslint-plugin-deprecated-props": "file:../.."
