@@ -49,7 +49,7 @@ This plugin was created _specifically_ for a use case we needed at Drawbotics, a
 ## Installation
 Make sure the project already has eslint installed. Note that this plugin works with `@typescript-eslint/parser`, so you need to have that installed as well.
 ```bash
-$ npm install @drawbotics/eslint-plugin-deprecated-props --save-dev
+$ npm install eslint-plugin-deprecated-props --save-dev
 ```
 
 ## Configuration
@@ -58,13 +58,13 @@ To configure this plugin to work properly, you need to set the following fields 
 ```js
 module.exports = {
   parser: '@typescript-eslint/parser',
-  plugins: ['@drawbotics/eslint-plugin-deprecated-props'],
+  plugins: ['eslint-plugin-deprecated-props'],
   parserOptions: {
     sourceType: 'module',
     project: 'tsconfig.json', // Path should point to tsconfig.json file, without leading `./` 
   },
   rules: {
-    '@drawbotics/deprecated-props/deprecated-props': ['warn'],  // Or 'error'
+    'deprecated-props/deprecated-props': ['warn'],  // Or 'error'
   },
 };
 ```
@@ -81,7 +81,7 @@ Depending on your personal configuration, you can enable vscode to report deprec
 
 If you _don't_ like to have the ESLint extension running in VSCode (e.g. because you already have the Typescript parser enabled) then you can do the following:
 1. Install the ESLint plugin
-2. Either create a workspace settings file for your project, or edit your global settings if you want this plugin to work automatically when the `@drawbotics/eslint-plugin-deprecated-props` is installed locally (note: eslint in vscode will complain if it's not installed)
+2. Either create a workspace settings file for your project, or edit your global settings if you want this plugin to work automatically when the `eslint-plugin-deprecated-props` is installed locally (note: eslint in vscode will complain if it's not installed)
 3. Use the following configuration (essentially the same as above):
 ```json
 "eslint.validate": [
@@ -96,10 +96,10 @@ If you _don't_ like to have the ESLint extension running in VSCode (e.g. because
 "eslint.options": {
   "useEslintrc": false,
   "rules": {
-    "@drawbotics/deprecated-props/deprecated-props": ["warn"],  // OR error
+    "deprecated-props/deprecated-props": ["warn"],  // OR error
   },
   "parser": "@typescript-eslint/parser",
-  "plugins": ["@drawbotics/eslint-plugin-deprecated-props"],
+  "plugins": ["eslint-plugin-deprecated-props"],
   "parserOptions": {
     "sourceType": "module",
     "project": "tsconfig.json",
