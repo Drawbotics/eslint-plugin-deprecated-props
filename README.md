@@ -58,7 +58,7 @@ To configure this plugin to work properly, you need to set the following fields 
 ```js
 module.exports = {
   parser: '@typescript-eslint/parser',
-  plugins: ['eslint-plugin-deprecated-props'],
+  plugins: ['deprecated-props'],
   parserOptions: {
     sourceType: 'module',
     project: 'tsconfig.json', // Path should point to tsconfig.json file, without leading `./` 
@@ -99,7 +99,7 @@ If you _don't_ like to have the ESLint extension running in VSCode (e.g. because
     "deprecated-props/deprecated-props": ["warn"],  // OR error
   },
   "parser": "@typescript-eslint/parser",
-  "plugins": ["eslint-plugin-deprecated-props"],
+  "plugins": ["deprecated-props"],
   "parserOptions": {
     "sourceType": "module",
     "project": "tsconfig.json",
