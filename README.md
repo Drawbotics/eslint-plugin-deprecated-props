@@ -88,6 +88,10 @@ If you _don't_ like to have the ESLint extension running in VSCode (e.g. because
   "typescript",
   "typescriptreact"
 ],
+"eslint.probe": [
+  "typescript",
+  "typescriptreact"
+],
 "eslint.workingDirectories": [{ "mode": "auto" }],
 "eslint.options": {
   "useEslintrc": false,
