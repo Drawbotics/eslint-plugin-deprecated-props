@@ -53,6 +53,7 @@ $ npm install @drawbotics/eslint-plugin-deprecated-props --save-dev
 ```
 
 ## Configuration
+First, make sure the peer dependencies required are the same version (or lower) than the versions you have currently installed, otherwise the parser features won't work.
 To configure this plugin to work properly, you need to set the following fields in your `.eslintrc.js`
 ```js
 module.exports = {
