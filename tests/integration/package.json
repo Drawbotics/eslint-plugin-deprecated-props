@@ -6,6 +6,6 @@
     "test": "jest --config ../../jest.config.js"
   },
   "devDependencies": {
-    "@drawbotics/eslint-plugin-deprecated-props": "file:../.."
+    "eslint-plugin-deprecated-props": "file:../.."
   }
 }
