@@ -79,7 +79,7 @@ $ npm run test
 ## Releasing
 Releasing is done automatically through the commit messages: `fix: [content]` will trigger a patch, `feature: [content]` will trigger a minor, and `breaking: [content]` will trigger a major. You can read more about it [here](https://semantic-release.gitbook.io/semantic-release/#how-does-it-work).
 ```bash
-$ npx semantic-release
+$ npx semantic-release --dry-run false --ci false
 ```
 
 ## VSCode
