@@ -76,6 +76,12 @@ To run the integration tests simply run
 $ npm run test
 ```
 
+## Releasing
+Releasing is done automatically through the commit messages: `fix: [content]` will trigger a patch, `feature: [content]` will trigger a minor, and `breaking: [content]` will trigger a major. You can read more about it [here](https://semantic-release.gitbook.io/semantic-release/#how-does-it-work).
+```bash
+$ npx semantic-release
+```
+
 ## VSCode
 Depending on your personal configuration, you can enable vscode to report deprecation usage through the plugin. If you already have the ESLint plugin installed and enabled, the deprecation rules should work automatically.
 
