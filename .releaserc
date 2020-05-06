@@ -1,4 +1,4 @@
 {
   "branches": ["master"],
-  "plugins": ["@semantic-release/git"]
+  "plugins": ["@semantic-release/npm", "@semantic-release/git"]
 }
