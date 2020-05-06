@@ -51,6 +51,22 @@ describe('avoidDeprecated', () => {
     });
   });
 
+  describe('when the component has a prop with the same name as a deprecated prop of one of its prop components', () => {
+    let res: CLIEngine.LintReport;
+
+    beforeEach(() => {
+      const file = path.resolve(__dirname, '../external-definition-false-positive.tsx');
+      res = cli.executeOnFiles([file]);
+    });
+
+    it('generates no warnings and errors', () => {
+      const { warningCount, errorCount } = res.results[0]!;
+
+      expect(warningCount).toEqual(0);
+      expect(errorCount).toEqual(0);
+    });
+  });
+
   describe('when the component interface is in the same file', () => {
     let res: CLIEngine.LintReport;
 
