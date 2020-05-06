@@ -46,8 +46,14 @@ function getSymbol(id: TSESTree.Identifier, services: RequiredParserServices, tc
   return symbol;
 }
 
-function getOpeningElement(nodes: Array<TSESTree.Node>): TSESTree.JSXOpeningElement | undefined {
-  return nodes.find((node) => node.type === 'JSXOpeningElement') as TSESTree.JSXOpeningElement;
+function getOpeningElement(
+  nodes: Array<TSESTree.Node>,
+  name: string,
+): TSESTree.JSXOpeningElement | undefined {
+  return nodes.find(
+    (node) =>
+      node.type === 'JSXOpeningElement' && (node.name as TSESTree.JSXIdentifier).name === name,
+  ) as TSESTree.JSXOpeningElement;
 }
 
 function getSourceFileParent(node: ts.Node): ts.SourceFile | undefined {
@@ -87,7 +93,10 @@ export default {
         }
 
         const ancestors = context.getAncestors();
-        const openingJsxElement = getOpeningElement(ancestors);
+        const openingJsxElement = getOpeningElement(
+          ancestors,
+          (node as TSESTree.JSXIdentifier).name,
+        );
         const attributeElements =
           openingJsxElement?.attributes.filter((attribute) => attribute.type === 'JSXAttribute') ??
           [];
