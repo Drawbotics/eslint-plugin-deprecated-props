@@ -1,6 +1,6 @@
 {
   "name": "eslint-plugin-deprecated-props",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "description": "Small eslint plugin to report usage of deprecated props",
   "main": "dist/index.js",
   "scripts": {
