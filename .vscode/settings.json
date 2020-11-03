@@ -1,0 +1,23 @@
+{
+  "eslint.validate": [
+    "typescript",
+    "typescriptreact"
+  ],
+  "eslint.probe": [
+    "typescript",
+    "typescriptreact"
+  ],
+  "eslint.workingDirectories": [{ "mode": "auto" }],
+  "eslint.options": {
+    "useEslintrc": false,
+    "rules": {
+      "deprecated-props/deprecated-props": ["error"],  // OR error
+    },
+    "parser": "@typescript-eslint/parser",
+    "plugins": ["deprecated-props"],
+    "parserOptions": {
+      "sourceType": "module",
+      "project": "tsconfig.json",
+    },
+  },
+}

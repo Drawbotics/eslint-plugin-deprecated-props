@@ -2,7 +2,7 @@
   "private": true,
   "name": "eslint-plugin-deprecated-props-tester",
   "scripts": {
-    "lint": "eslint --config ./.eslintrc.js --ext .tsx ./external-definition-false-positive.tsx",
+    "lint": "eslint --config ./.eslintrc.js --ext .tsx ./external-definition.tsx",
     "test": "jest --config ../../jest.config.js"
   },
   "devDependencies": {
